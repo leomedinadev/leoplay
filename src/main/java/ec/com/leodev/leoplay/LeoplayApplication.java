@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 title = "LEO-PLAY API Documentation",
                 version = "1.0.0-RELEASE",
                 description = "Documentación de la API con OpenAPI 3 - Leo-play",
-                contact = @Contact(name = "Leo Medina", email = "tioleodeveloper@gmail.com", url = "https://github.com/leo7medina"),
+                contact = @Contact(name = "Leo Medina", email = "tioleodeveloper@gmail.com", url = "https://github.com/leomedinadev"),
                 license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html")
         )
 )

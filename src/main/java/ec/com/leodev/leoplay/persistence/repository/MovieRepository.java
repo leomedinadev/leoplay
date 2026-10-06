@@ -35,11 +35,11 @@ public class MovieRepository implements IMovieRepository {
 
     @Override
     public MovieDto save(MovieDto movieDto) {
-        if (this.crudMovieRepository.findFistByTitle(movieDto.title()) != null) {
+        if (this.crudMovieRepository.existsByTitle(movieDto.title())) {
             throw new MovieAlreadyExistsException(movieDto.title());
         }
         MovieEntity movieEntity = this.movieMapper.toEntity(movieDto);
-        movieEntity.setStatus("1");
+        movieEntity.setStatus(MovieEntity.STATUS_AVAILABLE);
         return this.movieMapper.toDto(this.crudMovieRepository.save(movieEntity));
     }
 
@@ -54,7 +54,11 @@ public class MovieRepository implements IMovieRepository {
     }
 
     @Override
-    public void delete(long id) {
+    public boolean delete(long id) {
+        if (!this.crudMovieRepository.existsById(id)) {
+            return false;
+        }
         this.crudMovieRepository.deleteById(id);
+        return true;
     }
 }

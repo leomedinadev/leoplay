@@ -17,6 +17,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "movie")
 public class MovieEntity {
+
+    /** Estado de una película disponible (coincide con data.sql). */
+    public static final String STATUS_AVAILABLE = "D";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +37,7 @@ public class MovieEntity {
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @Column(name = "rating", nullable = false, scale = 2)
+    @Column(name = "rating", precision = 3, scale = 2)
     private BigDecimal rating;
 
     @Column(name = "status", nullable = false, length = 1)

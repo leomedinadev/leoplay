@@ -53,7 +53,7 @@ public class MovieController {
             }
     )
     @GetMapping(value = "/{id}")
-    public ResponseEntity<MovieDto> getById(@Parameter(description = "Identificador de la peícula a recuperar", example = "9") @PathVariable long id) {
+    public ResponseEntity<MovieDto> getById(@Parameter(description = "Identificador de la película a recuperar", example = "9") @PathVariable long id) {
         MovieDto movieDto = this.movieService.findById(id);
         if (movieDto == null) {
             return ResponseEntity.notFound().build();
@@ -68,19 +68,25 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieDto> add(@RequestBody MovieDto movieDto) {
+    public ResponseEntity<MovieDto> add(@RequestBody @Valid MovieDto movieDto) {
         MovieDto movieDtoResponse = this.movieService.add(movieDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieDtoResponse);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MovieDto> update(@PathVariable long id, @RequestBody @Valid UpdateMovieDto updateMovieDto) {
-        return ResponseEntity.ok(this.movieService.update(id, updateMovieDto));
+        MovieDto updated = this.movieService.update(id, updateMovieDto);
+        if (updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
-        this.movieService.delete(id);
-        return ResponseEntity.ok().build();
+        if (!this.movieService.delete(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 }
