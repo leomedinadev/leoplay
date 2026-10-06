@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ICrudMovieRepository extends CrudRepository<MovieEntity, Long> {
 
-    MovieEntity findFistByTitle(String title);
+    boolean existsByTitle(String title);
 }

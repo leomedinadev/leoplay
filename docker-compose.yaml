@@ -1,15 +1,15 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:17-alpine'
     restart: unless-stopped
     environment:
       - 'POSTGRES_DB=leoplay_db'
-      - 'POSTGRES_PASSWORD=admin_leoplay_db'
       - 'POSTGRES_USER=admin_leoplay_db'
+      - 'POSTGRES_PASSWORD=admin_leoplay_db'
     ports:
       - '5432:5432'
     volumes:
-      - v_postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
-  v_postgres_data:
-    external: true
+  postgres_data:
